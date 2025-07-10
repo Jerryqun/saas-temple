@@ -1,21 +1,21 @@
-const a = 1
-
-function FN<T>(params: T): T {
-  return params
+/**
+ * 格式化金额
+ * @param num
+ * @returns
+ */
+export const formatMoney = (num: number | string, options: object) => {
+  const n = parseFloat(num.toString())
+  return n.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', ...options })
 }
 
-type User = {
-  name: 'cq'
-  age: 18
+/**
+ * 格式化数字
+ * @param num
+ * @returns
+ */
+export const formatNum = (num?: number | string) => {
+  if (!num) return 0
+  const a = num.toString()
+  if (a.indexOf('.') > -1) return a.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+  return a.replace(/(\d)(?=(\d{3})+$)/g, '$1,')
 }
-
-type UserKey = keyof User
-
-const name1: UserKey = 'name'
-
-const user = {
-  a: 1,
-  b: 2
-}
-
-type AAA = typeof user
