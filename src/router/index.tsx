@@ -1,15 +1,17 @@
 import { Navigate, useRoutes } from 'react-router-dom'
 import Error404 from '@/pages/404'
 import Error403 from '@/pages/403'
+import WelCome from '@/pages/welcome'
+import Login from '@/pages/Login'
 
 export const router = [
   {
     path: '/',
-    element: <div>welcome</div>
+    element: <WelCome />
   },
   {
     path: '/login',
-    element: <div>login</div>
+    element: <Login />
   },
   {
     path: '*',
