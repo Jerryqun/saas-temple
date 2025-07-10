@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { Navigate, useRoutes } from 'react-router-dom'
 import Error404 from '@/pages/404'
 import Error403 from '@/pages/403'
 
@@ -25,4 +25,8 @@ export const router = [
   }
 ]
 
-export default createBrowserRouter(router)
+export default function Router() {
+  return useRoutes(router)
+}
+
+// export default createBrowserRouter(router)
