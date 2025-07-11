@@ -1,15 +1,13 @@
-import { useEffect } from 'react'
-import request from '@/utils/request'
 import { LoginForm } from 'hnwx-antd-comps'
 import styles from './index.module.css'
+import type { LoginParams } from '@/types/login'
+import loginApi from '@/api/login'
 
 export default () => {
-  useEffect(() => {
-    request.get('/login', { name: 'cq' })
-  }, [])
-
-  const onSubmit = (params: unknown) => {
+  const onSubmit = async (params: LoginParams) => {
     console.log('params: ', params)
+    const { data } = await loginApi.login(params)
+    console.log('data: ', data)
   }
 
   return (

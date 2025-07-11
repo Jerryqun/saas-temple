@@ -1,8 +1,9 @@
 import axios, { AxiosError } from 'axios'
 import { showLoading, hideLoading } from '@/utils/loading'
+import env from '@/config'
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_API,
+  baseURL: import.meta.env.VITE_BASE_API, // 已被运行时覆盖
   timeout: 8000,
   timeoutErrorMessage: '请求超时请稍后',
   withCredentials: true
@@ -13,6 +14,11 @@ instance.interceptors.request.use(
     showLoading()
     if (import.meta.env.VITE_MOCK === 'true') {
       config.baseURL = import.meta.env.VITE_MOCK_API
+    }
+    if (env.mock) {
+      config.baseURL = env.mockApi
+    } else {
+      config.baseURL = env.baseApi
     }
     return config
   },
