@@ -1,4 +1,4 @@
-import './App.css'
+import './global.css'
 import { HashRouter } from 'react-router'
 import Router from './router'
 
