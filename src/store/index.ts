@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import type { User } from '@/types/api'
 import storage from '@/utils/storage'
 
-export const useStore = create<{
+type useStoreType = {
   token: string
   userInfo: User.UserItem
   collapsed: boolean
@@ -11,8 +11,12 @@ export const useStore = create<{
   updateUserInfo: (userInfo: User.UserItem) => void
   updateCollapsed: () => void
   updateTheme: (isDark: boolean) => void
-}>(set => ({
+  test: string
+}
+
+export const useStore = create<useStoreType>(set => ({
   token: '',
+  test: 'cq',
   userInfo: {
     _id: '',
     userId: 0,
