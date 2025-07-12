@@ -26,7 +26,7 @@
   }
 }
 .img {
-  background: url('/imgs/welcome-bg.png') no-repeat;
+  background: url('../../assets/image/welcome-bg.png') no-repeat;
   background-size: contain;
   width: 370px;
   height: 320px;

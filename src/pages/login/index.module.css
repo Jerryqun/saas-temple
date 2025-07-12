@@ -7,4 +7,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right bottom;
+  :global(.form-lib-login-form) {
+    background: #fff;
+    padding: 50px 50px 100px 50px;
+    border-radius: 6px;
+  }
 }

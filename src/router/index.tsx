@@ -1,13 +1,23 @@
-import { createBrowserRouter, createHashRouter, Navigate, useRoutes } from 'react-router-dom'
+import { createHashRouter, Navigate } from 'react-router-dom'
 import Error404 from '@/pages/404'
 import Error403 from '@/pages/403'
 import WelCome from '@/pages/welcome'
 import Login from '@/pages/login'
+import Layout from '@/pages/layout'
 
 export const router = [
   {
     path: '/',
-    element: <WelCome />
+    element: <Navigate to='/welcome' />
+  },
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: 'welcome',
+        element: <WelCome />
+      }
+    ]
   },
   {
     path: '/login',
@@ -27,8 +37,8 @@ export const router = [
   }
 ]
 
-export default function Router() {
-  return useRoutes(router)
-}
+// export default function Router() {
+//   return useRoutes(router)
+// }
 
-// export default createHashRouter(router)
+export default createHashRouter(router)

@@ -1,7 +1,7 @@
 import { LoginForm } from 'hnwx-antd-comps'
 import styles from './index.module.css'
-import type { LoginParams } from '@/types/login'
-import loginApi from '@/api/login'
+import type { LoginParams } from '@/types/api'
+import loginApi from '@/api'
 import { setToken } from '@/utils'
 
 export default () => {

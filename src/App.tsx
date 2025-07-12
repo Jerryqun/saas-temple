@@ -1,6 +1,6 @@
 import './global.css'
-import { HashRouter } from 'react-router'
-import Router from './router'
+import { HashRouter, RouterProvider } from 'react-router'
+import routers from './router'
 import { ConfigProvider, App as AntdApp } from 'antd'
 import AntdGlobal from '@/utils/AntdGlobal'
 console.log('AntdGlobal: ', AntdGlobal)
@@ -11,19 +11,19 @@ function App() {
       theme={{
         token: {
           // Seed Token，影响范围大
-          colorPrimary: '#00b96b',
-          borderRadius: 2,
+          // colorPrimary: '#00b96b',
+          borderRadius: 2
 
           // 派生变量，影响范围小
-          colorBgContainer: '#f6ffed'
+          // colorBgContainer: '#f6ffed'
         }
       }}
     >
       <AntdApp className='antd-app'>
         <AntdGlobal />
-        <HashRouter>
-          <Router />
-        </HashRouter>
+        {/* <HashRouter> */}
+        <RouterProvider router={routers} />
+        {/* </HashRouter> */}
       </AntdApp>
     </ConfigProvider>
   )
