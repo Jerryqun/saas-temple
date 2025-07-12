@@ -2,12 +2,14 @@ import { LoginForm } from 'hnwx-antd-comps'
 import styles from './index.module.css'
 import type { LoginParams } from '@/types/login'
 import loginApi from '@/api/login'
+import { setToken } from '@/utils'
 
 export default () => {
   const onSubmit = async (params: LoginParams) => {
     console.log('params: ', params)
-    const { data } = await loginApi.login(params)
+    const data = await loginApi.login(params)
     console.log('data: ', data)
+    setToken(data)
   }
 
   return (

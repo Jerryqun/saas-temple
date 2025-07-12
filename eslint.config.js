@@ -23,7 +23,8 @@ export default defineConfig([
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
-      'react/display-name': 'off'
+      'react/display-name': 'off',
+      'no-explicit-any': 'off'
     }
   },
   {

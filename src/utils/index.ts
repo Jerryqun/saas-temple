@@ -1,3 +1,9 @@
+import storage from './storage'
+
+export const TOKEN_KEY = 'ADMIN_TOKEN'
+
+export const setToken = (token: string) => storage.set(TOKEN_KEY, token)
+
 /**
  *
  * @param num

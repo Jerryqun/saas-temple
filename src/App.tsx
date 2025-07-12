@@ -1,7 +1,9 @@
 import './global.css'
 import { HashRouter } from 'react-router'
 import Router from './router'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, App as AntdApp } from 'antd'
+import AntdGlobal from '@/utils/AntdGlobal'
+console.log('AntdGlobal: ', AntdGlobal)
 
 function App() {
   return (
@@ -17,9 +19,12 @@ function App() {
         }
       }}
     >
-      <HashRouter>
-        <Router />
-      </HashRouter>
+      <AntdApp className='antd-app'>
+        <AntdGlobal />
+        <HashRouter>
+          <Router />
+        </HashRouter>
+      </AntdApp>
     </ConfigProvider>
   )
 }
