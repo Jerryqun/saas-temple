@@ -1,6 +1,8 @@
 .nav-header {
   display: flex;
   justify-content: space-between;
+  width: 96%;
+  margin: 0 auto;
   .left {
     display: flex;
     align-items: center;

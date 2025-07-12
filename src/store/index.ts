@@ -20,8 +20,8 @@ export const useStore = create<useStoreType>(set => ({
   userInfo: {
     _id: '',
     userId: 0,
-    userName: '',
-    userEmail: '',
+    userName: 'cq',
+    userEmail: '932798303@qq.com',
     deptId: '',
     state: 0,
     mobile: '',
