@@ -1,3 +1,7 @@
+import { message } from 'antd'
+
+message.config({ maxCount: 1 })
+
 /**
  * 环境配置封装(推荐运行时配置)
  */

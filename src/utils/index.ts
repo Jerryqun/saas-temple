@@ -30,7 +30,8 @@ export const getMenuPath = (list: Menu.MenuItem[]): string[] => {
  * @param num
  * @returns
  */
-export const formatMoney = (num: number | string, options: object) => {
+export const formatMoney = (num?: number | string, options?: object) => {
+  if (!num) return ''
   const n = parseFloat(num.toString())
   return n.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', ...options })
 }

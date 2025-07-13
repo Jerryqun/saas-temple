@@ -4,6 +4,7 @@ import Error403 from '@/pages/403'
 import WelCome from '@/pages/welcome'
 import Login from '@/pages/login'
 import Layout from '@/pages/layout'
+import Dashboard from '@/pages/dashboard'
 
 export const router = [
   {
@@ -20,6 +21,10 @@ export const router = [
       {
         path: 'welcome',
         element: <WelCome />
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />
       }
     ]
   },
