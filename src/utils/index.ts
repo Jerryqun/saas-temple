@@ -25,6 +25,13 @@ export const getMenuPath = (list: Menu.MenuItem[]): string[] => {
   }, [])
 }
 
+export const sleep = (time = 1000) =>
+  new Promise(res => {
+    setTimeout(() => {
+      res(null)
+    }, time)
+  })
+
 /**
  *
  * @param num

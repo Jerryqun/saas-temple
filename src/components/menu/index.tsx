@@ -35,7 +35,11 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 const items: MenuItem[] = [
   getItem('首页', '/welcome', <PieChartOutlined />),
   getItem('数据汇总', '/dashboard', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [getItem('Tom', '3'), getItem('Bill', '4'), getItem('Alex', '5')]),
+  getItem('系统管理', '/system', <UserOutlined />, [
+    getItem('用户管理', '/user'),
+    getItem('Bill', '4'),
+    getItem('Alex', '5')
+  ]),
   getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Files', '9', <FileOutlined />)
 ]

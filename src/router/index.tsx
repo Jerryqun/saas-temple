@@ -5,6 +5,7 @@ import WelCome from '@/pages/welcome'
 import Login from '@/pages/login'
 import Layout from '@/pages/layout'
 import Dashboard from '@/pages/dashboard'
+import UserList from '@/pages/user-list'
 
 export const router = [
   {
@@ -25,6 +26,10 @@ export const router = [
       {
         path: 'dashboard',
         element: <Dashboard />
+      },
+      {
+        path: 'user',
+        element: <UserList />
       }
     ]
   },
