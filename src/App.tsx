@@ -19,7 +19,7 @@ function App() {
         }
       }}
     >
-      <AntdApp className='antd-app'>
+      <AntdApp message={{ maxCount: 1 }} className='antd-app'>
         <AntdGlobal />
         {/* <HashRouter> */}
         <RouterProvider router={routers} />

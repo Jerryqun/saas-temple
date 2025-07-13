@@ -22,9 +22,10 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     if (config.showLoading) showLoading()
-    if (import.meta.env.VITE_MOCK === 'true') {
-      config.baseURL = import.meta.env.VITE_MOCK_API
-    }
+    // if (import.meta.env.VITE_MOCK === 'true') {
+    //   config.baseURL = import.meta.env.VITE_MOCK_API
+    // }
+
     if (env.mock) {
       config.baseURL = env.mockApi
     } else {

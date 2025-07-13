@@ -4,12 +4,10 @@
  */
 
 // Entry component
-import { App, message as antdMessage } from 'antd'
+import { App } from 'antd'
 import type { MessageInstance } from 'antd/es/message/interface'
 import type { ModalStaticFunctions } from 'antd/es/modal/confirm'
 import type { NotificationInstance } from 'antd/es/notification/interface'
-
-antdMessage.config({ maxCount: 1 })
 
 let message: MessageInstance
 let notification: NotificationInstance
@@ -22,7 +20,5 @@ export default () => {
   notification = staticFunction.notification
   return null
 }
-
-antdMessage.config({ maxCount: 1 })
 
 export { message, notification, modal }
