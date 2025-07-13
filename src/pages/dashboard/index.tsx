@@ -1,31 +1,24 @@
 import { useStore } from '@/store'
-import { formatDate, formatNum, formatMoney } from '@/utils'
+import { formatNum, formatMoney } from '@/utils'
 import { Descriptions, Card, Button } from 'antd'
-import * as echarts from 'echarts'
 import { useEffect, useState } from 'react'
 import api from '@/api'
 import styles from './index.module.css'
 import type { Dashboard } from '@/types/api'
+import { useCharts } from '@/hooks/useEcharts'
 // import { useCharts } from '@/hook/useCharts'
 export default function DashBoard() {
   const userInfo = useStore(state => state.userInfo)
   const [report, setReport] = useState<Dashboard.ReportData>()
 
-  // // 初始化折线图
-  // const [lineRef, lineChart] = useCharts()
-  // // 初始饼图
-  // const [pieRef1, pieChart1] = useCharts()
-  // const [pieRef2, pieChart2] = useCharts()
-  // // 初始化雷达图
-  // const [radarRef, radarChart] = useCharts()
-
   // 初始化折线图
-  const [lineRef, lineChart] = useState([])
+  const [lineRef, lineChart] = useCharts()
   // 初始饼图
-  const [pieRef1, pieChart1] = useState([])
-  const [pieRef2, pieChart2] = useState([])
+  const [pieRef1, pieChart1] = useCharts()
+  const [pieRef2, pieChart2] = useCharts()
   // 初始化雷达图
-  const [radarRef, radarChart] = useState([])
+  const [radarRef, radarChart] = useCharts()
+
   useEffect(() => {
     renderLineChart()
     renderPieChart1()
