@@ -14,7 +14,6 @@ const { Header, Content, Footer, Sider } = Layout
 
 const App: React.FC = () => {
   const { collapsed, userInfo, updateUserInfo, updateCollapsed } = useStore()
-  console.log('collapsed-lay: ', collapsed)
 
   const {
     token: { colorBgContainer, borderRadiusLG }

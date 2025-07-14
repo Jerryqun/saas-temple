@@ -1,6 +1,4 @@
 import { TableProvider } from 'hnwx-antd-comps'
-
-import React from 'react'
 import searchScheam from './search'
 import tableScheam from './table'
 

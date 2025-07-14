@@ -1,20 +1,35 @@
+import type { Menu } from '@/types/api'
 import { message } from 'antd'
 
 message.config({ maxCount: 1 })
 
-export const menuList = [
+export const menuList: Menu.MenuItem[] = [
   {
     path: 'system',
     menuName: '系统管理',
     icon: 'icon-jianshen',
+    createTime: '-',
+    menuState: 1,
+    menuType: 1,
+    _id: '1',
     children: [
       {
+        _id: '2',
         path: '/user',
+        createTime: '-',
+        parentId: '1',
+        menuState: 1,
+        menuType: 1,
         menuName: '用户列表',
         icon: 'icon-_minishichangguanli'
       },
       {
+        _id: '3',
         path: '/auth-list',
+        parentId: '1',
+        createTime: '-',
+        menuState: 1,
+        menuType: 1,
         menuName: '权限列表',
         icon: 'icon-lirenmeirong'
       }
@@ -23,12 +38,21 @@ export const menuList = [
   {
     path: 'order',
     menuName: '订单管理',
+    createTime: '-',
     icon: 'icon-xitong',
+    menuType: 1,
+    menuState: 1,
+    _id: '4',
     children: [
       {
+        _id: '5',
         path: '/order-list',
+        createTime: '-',
+        menuState: 1,
         menuName: '订单列表',
-        icon: 'icon-jinrong'
+        icon: 'icon-jinrong',
+        parentId: '4',
+        menuType: 1
       }
     ]
   }

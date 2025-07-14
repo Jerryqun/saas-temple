@@ -1,12 +1,11 @@
 import { Menu as AntdMenu, type MenuProps } from 'antd'
-
-import { DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import type { IAuthLoader } from '@/router/AuthLoader'
 import type { Menu } from '@/types/api'
 import styles from './index.module.css'
 import IconFont from '@/components/icon'
+import { findTreeNode } from '@/utils'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -33,6 +32,7 @@ function getMenuData(menuList: Menu.MenuItem[]) {
 
 export default ({ collapsed }: any) => {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+  const [openKeys, setOpenKeys] = useState<string[]>()
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
@@ -51,12 +51,16 @@ export default ({ collapsed }: any) => {
   // 初始化，获取接口菜单列表数据
   useEffect(() => {
     setSelectedKeys([pathname])
+    const parentPaths = findTreeNode(data.menuList, pathname, [], 'path')
+    setOpenKeys(parentPaths)
   }, [])
 
   // Logo点击
   const handleClickLogo = () => {
     navigate('/welcome')
   }
+
+  if (!openKeys) return
 
   return (
     <div>
@@ -67,7 +71,7 @@ export default ({ collapsed }: any) => {
       <AntdMenu
         selectedKeys={selectedKeys}
         onClick={handleClickMenu}
-        // defaultSelectedKeys={['1']}
+        defaultOpenKeys={openKeys}
         mode='inline'
         items={items}
       />
