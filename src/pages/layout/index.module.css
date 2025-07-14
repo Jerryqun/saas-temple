@@ -1,9 +1,5 @@
-.content {
+.layout-content {
   background-color: var(--dark-home-bg-color);
-  height: calc(100vh - 90px);
-  padding: 20px;
+  padding: 16px;
   overflow: auto;
-}
-.wrapper {
-  min-height: calc(100vh - 210px);
 }

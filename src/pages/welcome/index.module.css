@@ -4,7 +4,7 @@
   align-items: center;
   background-color: var(--dark-bg-color);
   border-radius: 5px;
-  height: calc(100vh - 170px);
+  height: 100%;
 }
 .content {
   position: relative;

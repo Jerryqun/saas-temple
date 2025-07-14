@@ -3,7 +3,6 @@ import { HashRouter, RouterProvider } from 'react-router'
 import routers from './router'
 import { ConfigProvider, App as AntdApp } from 'antd'
 import AntdGlobal from '@/utils/AntdGlobal'
-console.log('AntdGlobal: ', AntdGlobal)
 
 function App() {
   return (

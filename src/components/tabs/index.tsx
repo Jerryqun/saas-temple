@@ -3,6 +3,7 @@ import { searchRoute } from '@/utils'
 import { Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
+import styles from './index.module.css'
 interface TabsItem {
   key: string
   label: string
@@ -29,8 +30,8 @@ export default function TabsFC() {
         closable: pathname !== '/welcome'
       })
     }
-    // setTabsList([...tabsList])
-    // setActiveKey(pathname)
+    setTabsList([...tabsList]) // 新的值才能触发render
+    setActiveKey(pathname)
   }
 
   // 路由切换
@@ -50,16 +51,18 @@ export default function TabsFC() {
     setTabsList(tabsList.filter(item => item.key != path))
   }
   return (
-    <Tabs
-      activeKey={activeKey}
-      items={tabsList}
-      tabBarStyle={{ height: 40, marginBottom: 0, backgroundColor: 'var(--dark-bg-color)' }}
-      type='editable-card'
-      hideAdd
-      onChange={handleChange}
-      onEdit={path => {
-        handleDel(path as string)
-      }}
-    />
+    <div className={styles['tabs']}>
+      <Tabs
+        activeKey={activeKey}
+        items={tabsList}
+        tabBarStyle={{ height: 40, marginBottom: 0, backgroundColor: 'var(--dark-bg-color)' }}
+        type='editable-card'
+        hideAdd
+        onChange={handleChange}
+        onEdit={path => {
+          handleDel(path as string)
+        }}
+      />
+    </div>
   )
 }

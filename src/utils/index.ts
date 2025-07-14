@@ -6,7 +6,12 @@ export const TOKEN_KEY = 'ADMIN_TOKEN' // token 存储 key
 
 export const setToken = (token: string) => storage.set(TOKEN_KEY, token)
 
-// 递归获取路由对象
+/**
+ *
+ * @param path 依据path查找menu对象
+ * @param routes
+ * @returns
+ */
 
 export const searchRoute: any = (path: string, routes: any = []) => {
   for (const item of routes) {
@@ -34,7 +39,7 @@ export const sleep = (time = 1000) =>
   })
 
 /**
- *
+ * 格式化金额
  * @param num
  * @returns
  */
@@ -121,7 +126,11 @@ export const formatPhone = (phone: string | number, emptyNode: React.ReactNode =
 }
 
 /**
- * 递归查找树的路径
+ * 递归查找树的路径(中文)
+ * @param tree
+ * @param pathName
+ * @param path
+ * @returns
  */
 export const findTreeNode = (tree: Menu.MenuItem[], pathName: string, path: string[] = []): string[] => {
   if (!tree) return []

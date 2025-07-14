@@ -14,6 +14,11 @@ body {
 }
 .common-layout {
   height: 100%;
-  overflow-y: auto;
-  margin: 16px;
+  /* overflow-y: auto;
+  margin: 40px 0 0 0; */
+}
+
+/* 加上tabs 的高度40px*/
+.ant-layout-header {
+  height: 104px;
 }

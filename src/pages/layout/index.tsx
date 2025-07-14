@@ -7,11 +7,14 @@ import { Outlet } from 'react-router-dom'
 import api from '@/api'
 import { useStore } from '@/store'
 import Menu from '@/components/menu'
+import TabsFC from '@/components/tabs'
+import styles from './index.module.css'
 
 const { Header, Content, Footer, Sider } = Layout
 
 const App: React.FC = () => {
   const { collapsed, userInfo, updateUserInfo, updateCollapsed } = useStore()
+  console.log('collapsed-lay: ', collapsed)
 
   const {
     token: { colorBgContainer, borderRadiusLG }
@@ -29,15 +32,14 @@ const App: React.FC = () => {
     <Watermark content='react'>
       <Layout style={{ height: '100vh' }}>
         <Sider theme='light' collapsible collapsed={collapsed} onCollapse={updateCollapsed}>
-          {/* <Menu defaultSelectedKeys={['1']} mode='inline' items={items} /> */}
-          <Menu />
+          <Menu collapsed={collapsed} />
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
             <NavHeader />
+            <TabsFC />
           </Header>
-          <Content>
-            {/* <Breadcrumb style={{ margin: '16px 0' }} items={[{ title: 'User' }, { title: 'Bill' }]} /> */}
+          <Content className={styles['layout-content']}>
             <Outlet />
           </Content>
           <NavFooter />

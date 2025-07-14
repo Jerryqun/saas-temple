@@ -4,30 +4,31 @@ message.config({ maxCount: 1 })
 
 export const menuList = [
   {
-    path: '/welcome',
-    menuName: '首页'
-  },
-  {
     path: 'system',
     menuName: '系统管理',
+    icon: 'icon-jianshen',
     children: [
       {
         path: '/user',
-        menuName: '用户列表'
+        menuName: '用户列表',
+        icon: 'icon-_minishichangguanli'
       },
       {
         path: '/auth-list',
-        menuName: '权限列表'
+        menuName: '权限列表',
+        icon: 'icon-lirenmeirong'
       }
     ]
   },
   {
     path: 'order',
     menuName: '订单管理',
+    icon: 'icon-xitong',
     children: [
       {
         path: '/order-list',
-        menuName: '订单列表'
+        menuName: '订单列表',
+        icon: 'icon-jinrong'
       }
     ]
   }

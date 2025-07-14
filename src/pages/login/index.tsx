@@ -1,6 +1,6 @@
-// import { LoginForm } from 'hnwx-antd-comps'
+import { LoginForm } from 'hnwx-antd-comps'
 import styles from './index.module.css'
-// import type { Login, LoginParams } from '@/types/api'
+import type { Login, LoginParams } from '@/types/api'
 import { useStore } from '@/store'
 import storage from '@/utils/storage'
 import { message } from 'antd'
@@ -29,12 +29,12 @@ export default () => {
 
   return (
     <div className={styles['login']}>
-      {/* <LoginForm
+      <LoginForm
         title='xxx系统'
         logo='https://wisdomhammer.oss-cn-hangzhou.aliyuncs.com/pmsaas/1025/1/20250205/2da0e5c6ac87a13d04d11aabfd11b749.png?Expires=3316576048&OSSAccessKeyId=LTAI5t5fwTBbu4WT1PJCaeCS&Signature=prRMTQ%2BmXZBx8v3Hc6%2FHRAnD3Ho%3D'
         subTitle='xxx系统介绍说明'
         onSubmit={onFinish}
-      /> */}
+      />
     </div>
   )
 }

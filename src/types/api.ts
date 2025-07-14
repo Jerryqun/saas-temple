@@ -108,7 +108,7 @@ export namespace Menu {
     menuState: number // 1：正常 2：停用
     menuCode?: string // 按钮权限标识
     parentId?: string // 父级菜单ID
-    path?: string // 菜单路径
+    path: string // 菜单路径
     component?: string // 组件名称
   }
   export interface MenuItem extends CreateParams {

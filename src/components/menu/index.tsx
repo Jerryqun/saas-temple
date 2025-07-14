@@ -1,25 +1,12 @@
-// import React from 'react'
-// import { Menu } from 'antd'
-// import { DesktopOutlined, SettingOutlined, TeamOutlined } from '@ant-design/icons'
-// import styles from './index.module.css'
-// import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
-// import { useStore } from '@/store'
-// import type { MenuProps, MenuTheme } from 'antd/es/menu'
-// import { useEffect, useState } from 'react'
-// import type { Menu as IMenu } from '@/types/api'
-// import * as Icons from '@ant-design/icons'
-// const SideMenu = () => {
-//   const [menuList, setMenuList] = useState<MenuItem[]>([])
-//   const navigate = useNavigate()
-//   const { collapsed, isDark } = useStore(state => ({ collapsed: state.collapsed, isDark: state.isDark }))
-//   const data: any = useRouteLoaderData('layout') || { menuList: [] }
-//   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
-
-import { Menu, type MenuProps } from 'antd'
+import { Menu as AntdMenu, type MenuProps } from 'antd'
 
 import { DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
+import type { IAuthLoader } from '@/router/AuthLoader'
+import type { Menu } from '@/types/api'
+import styles from './index.module.css'
+import IconFont from '@/components/icon'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -32,98 +19,29 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
   } as MenuItem
 }
 
-const items: MenuItem[] = [
-  getItem('首页', '/welcome', <PieChartOutlined />),
-  getItem('数据汇总', '/dashboard', <DesktopOutlined />),
-  getItem('系统管理', '/system', <UserOutlined />, [
-    getItem('用户管理', '/user'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5')
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />)
-]
+function getMenuData(menuList: Menu.MenuItem[]) {
+  const items: any = menuList.map(d => {
+    if (d.children && d.children.length > 0) {
+      return getItem(d.menuName, d.path, <IconFont type={d.icon || ''} />, getMenuData(d.children))
+    } else {
+      return getItem(d.menuName, d.path, <IconFont type={d.icon || ''} />)
+    }
+  })
 
-//   const { pathname } = useLocation()
-//   type MenuItem = Required<MenuProps>['items'][number]
-//   // 生成每一个菜单项
-//   function getItem(
-//     label: React.ReactNode,
-//     key?: React.Key | null,
-//     icon?: React.ReactNode,
-//     children?: MenuItem[]
-//   ): MenuItem {
-//     return {
-//       label,
-//       key,
-//       icon,
-//       children
-//     } as MenuItem
-//   }
-//   function createIcon(name?: string) {
-//     if (!name) return <></>
-//     const customerIcons: { [key: string]: any } = Icons
-//     const icon = customerIcons[name]
-//     if (!icon) return <></>
-//     return React.createElement(icon)
-//   }
-//   // 递归生成菜单
-//   const getTreeMenu = (menuList: IMenu.MenuItem[], treeList: MenuItem[] = []) => {
-//     menuList.forEach((item, index) => {
-//       if (item.menuType === 1 && item.menuState === 1) {
-//         if (item.buttons) return treeList.push(getItem(item.menuName, item.path || index, createIcon(item.icon)))
-//         treeList.push(
-//           getItem(item.menuName, item.path || index, createIcon(item.icon), getTreeMenu(item.children || []))
-//         )
-//       }
-//     })
-//     return treeList
-//   }
-//   // 初始化，获取接口菜单列表数据
-//   useEffect(() => {
-//     const treeMenuList = getTreeMenu(data.menuList || [])
-//     setMenuList(treeMenuList)
-//     setSelectedKeys([pathname])
-//   }, [])
+  return items
+}
 
-//   // Logo点击
-//   const handleClickLogo = () => {
-//     navigate('/welcome')
-//   }
-
-//   // 菜单点击
-//   const handleClickMenu = ({ key }: { key: string }) => {
-//     setSelectedKeys([key])
-//     navigate(key)
-//   }
-//   return (
-//     <div className={styles.navSide}>
-//       <div className={styles.logo} onClick={handleClickLogo}>
-//         <img src='/imgs/logo.png' className={styles.img} />
-//         {collapsed ? '' : <span>慕慕货运</span>}
-//       </div>
-//       <Menu
-//         mode='inline'
-//         theme={isDark ? 'light' : 'dark'}
-//         style={{
-//           width: collapsed ? 80 : 'auto',
-//           height: 'calc(100vh - 50px)'
-//         }}
-//         selectedKeys={selectedKeys}
-//         onClick={handleClickMenu}
-//         items={menuList}
-//       />
-//     </div>
-//   )
-// }
-
-// export default SideMenu
-
-export default () => {
+export default ({ collapsed }: any) => {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const { pathname } = useLocation()
-  console.log('pathname: ', pathname)
   const navigate = useNavigate()
+
+  // const { collapsed, isDark } = useStore(state => ({ collapsed: state.collapsed, isDark: state.isDark }))
+  // console.log('isDark: ', isDark)
+
+  const data = useRouteLoaderData('layout') as IAuthLoader
+
+  const items = getMenuData(data.menuList)
 
   const handleClickMenu = ({ key }: { key: string }) => {
     setSelectedKeys([key])
@@ -135,13 +53,24 @@ export default () => {
     setSelectedKeys([pathname])
   }, [])
 
+  // Logo点击
+  const handleClickLogo = () => {
+    navigate('/welcome')
+  }
+
   return (
-    <Menu
-      selectedKeys={selectedKeys}
-      onClick={handleClickMenu}
-      // defaultSelectedKeys={['1']}
-      mode='inline'
-      items={items}
-    />
+    <div>
+      <div className={styles.logo} onClick={handleClickLogo}>
+        <img src='https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg' className={styles.img} />
+        {collapsed ? '' : <span>saas系统模板</span>}
+      </div>
+      <AntdMenu
+        selectedKeys={selectedKeys}
+        onClick={handleClickMenu}
+        // defaultSelectedKeys={['1']}
+        mode='inline'
+        items={items}
+      />
+    </div>
   )
 }
