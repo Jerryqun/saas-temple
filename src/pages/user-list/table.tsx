@@ -51,7 +51,7 @@ const tableSchema: TableProps = {
         return {
           title: '新增用户2',
           fields: formSchema,
-          drag: true,
+          // drag: true,
           column: 2,
           async onSubmit() {
             await delay(400)
