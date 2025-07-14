@@ -1,7 +1,8 @@
 import type { Menu } from '@/types/api'
 import storage from './storage'
+import type React from 'react'
 
-export const TOKEN_KEY = 'ADMIN_TOKEN'
+export const TOKEN_KEY = 'ADMIN_TOKEN' // token 存储 key
 
 export const setToken = (token: string) => storage.set(TOKEN_KEY, token)
 
@@ -107,4 +108,14 @@ export const formatDate = (date?: Date | string, rule?: string) => {
     fmt = fmt.replace(new RegExp(`(${k})`), val)
   }
   return fmt
+}
+/**
+ * 手机号加密
+ * @param phone
+ * @param emptyNode
+ * @returns
+ */
+export const formatPhone = (phone: string | number, emptyNode: React.ReactNode = '-') => {
+  if (!phone) return emptyNode
+  return `${phone}`.replace(/(\d{3})\d*(\d{4})/, '$1****$2')
 }
