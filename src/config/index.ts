@@ -2,6 +2,37 @@ import { message } from 'antd'
 
 message.config({ maxCount: 1 })
 
+export const menuList = [
+  {
+    path: '/welcome',
+    menuName: '首页'
+  },
+  {
+    path: 'system',
+    menuName: '系统管理',
+    children: [
+      {
+        path: '/user',
+        menuName: '用户列表'
+      },
+      {
+        path: '/auth-list',
+        menuName: '权限列表'
+      }
+    ]
+  },
+  {
+    path: 'order',
+    menuName: '订单管理',
+    children: [
+      {
+        path: '/order-list',
+        menuName: '订单列表'
+      }
+    ]
+  }
+]
+
 /**
  * 环境配置封装(推荐运行时配置)
  */

@@ -1,22 +1,13 @@
 import storage from '@/utils/storage'
 import style from './index.module.css'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
-import { Breadcrumb, Dropdown, Switch, type MenuProps } from 'antd'
+import { Dropdown, Switch, type MenuProps } from 'antd'
 import { useEffect } from 'react'
 import { useStore } from '@/store'
+import BreadCrumb from './BreadCrumb'
 
 export default () => {
-  const breadList = [
-    {
-      title: '首页'
-    },
-    {
-      title: '工作台'
-    }
-  ]
-
   const { userInfo, collapsed, isDark, updateCollapsed, updateTheme } = useStore()
-  console.log('isDark: ', isDark)
   useEffect(() => {
     handleSwitch(isDark)
   }, [])
@@ -57,8 +48,10 @@ export default () => {
   return (
     <div className={style['nav-header']}>
       <div className={style['left']}>
-        <div onClick={toggleCollapsed}>{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</div>
-        <Breadcrumb items={breadList} />
+        <div className={style['icon']} onClick={toggleCollapsed}>
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </div>
+        <BreadCrumb />
       </div>
       <div className={style['right']}>
         <Switch

@@ -11,3 +11,9 @@ declare module 'axios' {
     showError?: boolean
   }
 }
+
+declare interface Window {
+  BMaoGL: {
+    [key: string]: any
+  }
+}

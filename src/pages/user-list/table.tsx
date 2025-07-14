@@ -4,6 +4,7 @@ import { message } from 'antd'
 import type { TableProps } from 'hnwx-antd-comps'
 import React from 'react'
 import formSchema from './form'
+import Marker from './components/marker'
 
 const service = new UserService()
 
@@ -185,7 +186,16 @@ const tableSchema: TableProps = {
             return {
               title: '用户打点',
               initialValues: record,
-              fields: formSchema,
+              fields: [
+                {
+                  type: 'Render',
+                  props: {
+                    render: () => {
+                      return <Marker />
+                    }
+                  }
+                }
+              ],
               async onSubmit() {
                 await delay(400)
                 message.success('保存成功')

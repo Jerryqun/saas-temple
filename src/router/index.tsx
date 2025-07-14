@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import Error404 from '@/pages/404'
 import Error403 from '@/pages/403'
-import WelCome from '@/pages/welcome'
 import Login from '@/pages/login'
 import Layout from '@/pages/layout'
-import Dashboard from '@/pages/dashboard'
-import UserList from '@/pages/user-list'
+import AuthLoader from './AuthLoader'
+import { lazyLoad } from './lazyLoad'
+import React from 'react'
 
 export const router = [
   {
@@ -17,19 +17,21 @@ export const router = [
     element: <Login />
   },
   {
+    id: 'layout',
     element: <Layout />,
+    loader: AuthLoader,
     children: [
       {
         path: 'welcome',
-        element: <WelCome />
+        element: lazyLoad(React.lazy(() => import('@/pages/welcome')))
       },
       {
         path: 'dashboard',
-        element: <Dashboard />
+        element: lazyLoad(React.lazy(() => import('@/pages/dashboard')))
       },
       {
         path: 'user',
-        element: <UserList />
+        element: lazyLoad(React.lazy(() => import('@/pages/user-list')))
       }
     ]
   },
