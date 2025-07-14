@@ -6,9 +6,11 @@ import tableScheam from './table'
 
 export default () => {
   return (
-    <TableProvider cacheTableParams cacheTableParamsId='yhlb'>
-      <TableProvider.Search {...searchScheam} />
-      <TableProvider.Table {...tableScheam} />
-    </TableProvider>
+    <div className='common-layout'>
+      <TableProvider cacheTableParams cacheTableParamsId='yhlb'>
+        <TableProvider.Search {...searchScheam} />
+        <TableProvider.Table {...tableScheam} />
+      </TableProvider>
+    </div>
   )
 }

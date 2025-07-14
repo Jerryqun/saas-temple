@@ -3,3 +3,9 @@ export interface Result<T = any> {
   data: T
   msg: string
 }
+
+interface Window {
+  BMaoGL: {
+    [key: string]: any
+  }
+}

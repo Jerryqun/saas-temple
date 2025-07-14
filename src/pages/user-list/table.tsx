@@ -163,12 +163,12 @@ const tableSchema: TableProps = {
     menus(record) {
       return [
         {
-          label: '编辑1',
+          label: '编辑',
           key: 'edit1',
           modalFormProps: ({ onRefresh }) => {
             return {
               initialValues: record,
-              title: '编辑用户1',
+              title: '编辑用户',
               fields: formSchema,
               async onSubmit() {
                 await delay(400)
@@ -179,11 +179,11 @@ const tableSchema: TableProps = {
           }
         },
         {
-          label: '编辑2',
-          key: 'edit2',
+          label: '用户打点',
+          key: 'marker',
           drawerFormProps: ({ onRefresh }) => {
             return {
-              title: '编辑用户2',
+              title: '用户打点',
               initialValues: record,
               fields: formSchema,
               async onSubmit() {

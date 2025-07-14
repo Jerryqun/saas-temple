@@ -36,7 +36,7 @@ const App: React.FC = () => {
           <Header style={{ padding: 0, background: colorBgContainer }}>
             <NavHeader />
           </Header>
-          <Content style={{ margin: '0 16px' }}>
+          <Content>
             {/* <Breadcrumb style={{ margin: '16px 0' }} items={[{ title: 'User' }, { title: 'Bill' }]} /> */}
             <Outlet />
           </Content>
