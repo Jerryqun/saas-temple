@@ -37,6 +37,7 @@ export default function TabsFC() {
   // 路由切换
   const handleChange = (path: string) => {
     navigate(path)
+    setActiveKey(path)
   }
 
   const handleDel = (path: string) => {
@@ -50,6 +51,7 @@ export default function TabsFC() {
     }
     setTabsList(tabsList.filter(item => item.key != path))
   }
+
   return (
     <div className={styles['tabs']}>
       <Tabs

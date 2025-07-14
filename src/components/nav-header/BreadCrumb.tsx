@@ -11,6 +11,7 @@ export default () => {
 
   useEffect(() => {
     const crumb = findTreeNode(data.menuList, pathname)
+    crumb.unshift('首页')
     setBreadList(crumb)
   }, [pathname])
 
