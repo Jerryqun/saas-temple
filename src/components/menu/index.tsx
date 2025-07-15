@@ -20,6 +20,10 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 
 function getMenuData(menuList: Menu.MenuItem[]) {
   const items: any = menuList.map(d => {
+    // 过滤禁用的菜单
+    if (d.menuState === 2) {
+      return null
+    }
     if (d.children && d.children.length > 0) {
       return getItem(d.menuName, d.path, <IconFont type={d.icon || ''} />, getMenuData(d.children))
     } else {

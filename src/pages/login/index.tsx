@@ -21,11 +21,11 @@ export default () => {
       updateToken(data)
       message.success('登录成功')
       setTimeout(() => {
-        navigate(callbackUrl || '/welcome')
+        navigate(callbackUrl || '/welcome', { replace: true })
       })
     } catch (error) {
       setTimeout(() => {
-        navigate(callbackUrl || '/welcome')
+        navigate(callbackUrl || '/welcome', { replace: true })
       })
       console.log('error: ', error)
     }

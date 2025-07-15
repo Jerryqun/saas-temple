@@ -34,7 +34,7 @@ export default () => {
   const onClick: MenuProps['onClick'] = ({ key }) => {
     if (key === 'logout') {
       storage.remove('token')
-      navigate('/login?callback=' + encodeURIComponent(location.pathname))
+      navigate('/login?callback=' + encodeURIComponent(location.pathname), { replace: true })
     }
   }
 

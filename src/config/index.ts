@@ -24,6 +24,16 @@ export const menuList: Menu.MenuItem[] = [
         icon: 'icon-_minishichangguanli'
       },
       {
+        _id: '6',
+        path: '/user-detail',
+        createTime: '-',
+        parentId: '1',
+        menuState: 2,
+        menuType: 1,
+        menuName: '用户详情',
+        icon: 'icon-_minishichangguanli'
+      },
+      {
         _id: '3',
         path: '/auth-list',
         parentId: '1',

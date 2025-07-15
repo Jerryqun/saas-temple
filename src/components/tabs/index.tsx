@@ -21,11 +21,12 @@ export default function TabsFC() {
 
   // 创建页签
   const addTabs = () => {
-    const route = searchRoute(pathname, data.menuList)
+    const p = '/' + pathname.split('/')?.[1]
+    const route = searchRoute(p, data.menuList)
     if (!route) return
-    if (!tabsList.find(item => item.key == route.path)) {
+    if (!tabsList.find(item => item.key == pathname)) {
       tabsList.push({
-        key: route.path,
+        key: pathname,
         label: route.menuName,
         closable: pathname !== '/welcome'
       })

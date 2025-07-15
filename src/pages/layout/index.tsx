@@ -9,6 +9,7 @@ import { useStore } from '@/store'
 import Menu from '@/components/menu'
 import TabsFC from '@/components/tabs'
 import styles from './index.module.css'
+import OutletKeepAlive from '@/components/keep-alive-outlet'
 
 const { Header, Content, Sider } = Layout
 
@@ -39,7 +40,8 @@ const App: React.FC = () => {
             <TabsFC />
           </Header>
           <Content className={styles['layout-content']}>
-            <Outlet />
+            {/* <OutletKeepAlive /> */}
+            <Outlet></Outlet>
           </Content>
           <NavFooter />
         </Layout>
