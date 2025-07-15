@@ -5,9 +5,13 @@ import { Dropdown, Switch, type MenuProps } from 'antd'
 import { useEffect } from 'react'
 import { useStore } from '@/store'
 import BreadCrumb from './BreadCrumb'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default () => {
   const { userInfo, collapsed, isDark, updateCollapsed, updateTheme } = useStore()
+
+  const navigate = useNavigate()
+  const location = useLocation()
   useEffect(() => {
     handleSwitch(isDark)
   }, [])
@@ -30,7 +34,7 @@ export default () => {
   const onClick: MenuProps['onClick'] = ({ key }) => {
     if (key === 'logout') {
       storage.remove('token')
-      location.href = '/login?callback=' + encodeURIComponent(location.href)
+      navigate('/login?callback=' + encodeURIComponent(location.pathname))
     }
   }
 

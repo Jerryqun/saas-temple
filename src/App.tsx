@@ -8,7 +8,7 @@ import { useStore } from './store'
 
 function App() {
   const isDark = useStore(state => state.isDark)
-  console.log('isDark: ', isDark)
+  // console.log('isDark: ', isDark)
 
   return (
     <ConfigProvider

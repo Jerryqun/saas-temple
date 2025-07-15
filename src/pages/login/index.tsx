@@ -5,23 +5,27 @@ import { useStore } from '@/store'
 import storage from '@/utils/storage'
 import { message } from 'antd'
 import api from '@/api'
+import { useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 export default () => {
   const updateToken = useStore(state => state.updateToken)
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
   const onFinish = async (values: any) => {
+    const callbackUrl = searchParams.get('callback')
     try {
       const data = await api.login(values)
       storage.set('token', data)
       updateToken(data)
       message.success('登录成功')
-      const params = new URLSearchParams(location.search)
       setTimeout(() => {
-        location.href = params.get('callback') || '/welcome'
+        navigate(callbackUrl || '/welcome')
       })
     } catch (error) {
-      const params = new URLSearchParams(location.search)
       setTimeout(() => {
-        location.href = params.get('callback') || '/welcome'
+        navigate(callbackUrl || '/welcome')
       })
       console.log('error: ', error)
     }
