@@ -21,8 +21,38 @@ export default function TabsFC() {
 
   // 创建页签
   const addTabs = () => {
-    const p = '/' + pathname.split('/')?.[1]
-    const route = searchRoute(p, data.menuList)
+    const pathSplit = pathname.split('/')
+    // 判断是不是详情页,当时详情页的时候 tabs永远只有一个
+    if (pathSplit.length > 2) {
+      const p = '/' + pathname.split('/')?.[1]
+      const route = searchRoute(p, data.menuList)
+      if (!route) return
+
+      const cur = tabsList.find(item => item.key.includes(p))
+      if (!cur) {
+        tabsList.push({
+          key: pathname,
+          label: route.menuName,
+          closable: pathname !== '/welcome'
+        })
+        setTabsList([...tabsList]) // 新的值才能触发render
+        setActiveKey(pathname)
+      } else {
+        setTabsList(
+          tabsList.map(d => {
+            if (d.key.includes(p)) {
+              return { ...d, key: pathname }
+            } else {
+              return { ...d }
+            }
+          })
+        ) // 新的值才能触发render
+        setActiveKey(pathname)
+      }
+      return
+    }
+
+    const route = searchRoute(pathname, data.menuList)
     if (!route) return
     if (!tabsList.find(item => item.key == pathname)) {
       tabsList.push({

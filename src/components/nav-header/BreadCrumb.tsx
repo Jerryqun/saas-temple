@@ -10,7 +10,7 @@ export default () => {
   const data = useRouteLoaderData('layout') as IAuthLoader
 
   useEffect(() => {
-    const crumb = findTreeNode<React.ReactNode>(data.menuList, pathname)
+    const crumb = findTreeNode<React.ReactNode>(data.menuList, '/' + pathname.split('/')[1])
     crumb.unshift(<a href='/welcome'>首页</a>)
     setBreadList(crumb)
   }, [pathname])
