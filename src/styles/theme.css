@@ -3,6 +3,7 @@
   --dark-color: #000;
   --dark-home-bg-color: #f0f2f5;
   --dark-logo-color: #001529;
+  --dark-border-bottom: #f2f2f2;
 }
 
 .dark {
@@ -10,4 +11,5 @@
   --dark-color: #fff;
   --dark-home-bg-color: #000;
   --dark-logo-color: #141414;
+  --dark-border-bottom: #141414;
 }

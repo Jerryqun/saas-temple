@@ -22,3 +22,21 @@ body {
 .ant-layout-header {
   height: 104px;
 }
+
+.form-lib-search,
+.shine-table-form,
+.table-form-header {
+  background: var(--dark-bg-color) !important;
+  color: var(--dark-color) !important;
+}
+
+.shine-table-form .ant-table-wrapper .ant-table-thead > tr > th {
+  background: var(--dark-bg-color) !important;
+  color: var(--dark-color) !important;
+}
+
+.shine-table-form .ant-pagination {
+  background: var(--dark-bg-color) !important;
+  color: var(--dark-color) !important;
+  border-bottom: 1px solid var(--dark-border-bottom) !important;
+}
