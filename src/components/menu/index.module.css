@@ -2,12 +2,13 @@
   display: flex;
   align-items: center;
   font-size: 16px;
-  background-color: var(--dark-logo-color);
   /* color: #fff; */
   height: 50px;
   line-height: 50px;
   cursor: pointer;
-  border-right: 1px solid #eee;
+  /* border-right: 1px solid #eee; */
+  background-color: var(--dark-bg-color);
+  color: var(--dark-color);
 }
 
 .img {

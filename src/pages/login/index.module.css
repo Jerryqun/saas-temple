@@ -8,8 +8,9 @@
   background-size: cover;
   background-position: right bottom;
   :global(.form-lib-login-form) {
-    background: #fff;
+    background: var(--dark-bg-color);
     padding: 50px 50px 100px 50px;
     border-radius: 6px;
+    color: var(--dark-color);
   }
 }
