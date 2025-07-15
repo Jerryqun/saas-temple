@@ -2,7 +2,7 @@ import { sleep } from '@/utils'
 import UserService from '@/utils/service-mock'
 import { message } from 'antd'
 import type { TableProps } from 'hnwx-antd-comps'
-import React from 'react'
+// import React from 'react'
 import formSchema from './form'
 import Marker from './components/marker'
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 // import type { MenuProps } from 'antd'
 import { Layout, theme, Watermark } from 'antd'
 import NavHeader from '@/components/nav-header'
@@ -10,13 +10,13 @@ import Menu from '@/components/menu'
 import TabsFC from '@/components/tabs'
 import styles from './index.module.css'
 
-const { Header, Content, Footer, Sider } = Layout
+const { Header, Content, Sider } = Layout
 
 const App: React.FC = () => {
-  const { collapsed, userInfo, updateUserInfo, updateCollapsed } = useStore()
+  const { collapsed, updateUserInfo, updateCollapsed } = useStore()
 
   const {
-    token: { colorBgContainer, borderRadiusLG }
+    token: { colorBgContainer }
   } = theme.useToken()
 
   useEffect(() => {

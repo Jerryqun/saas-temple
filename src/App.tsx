@@ -1,6 +1,6 @@
 import './styles/global.css'
 import './styles/theme.css'
-import { HashRouter, RouterProvider } from 'react-router'
+import { RouterProvider } from 'react-router'
 import routers from './router'
 import { ConfigProvider, App as AntdApp, theme } from 'antd'
 import AntdGlobal from '@/utils/AntdGlobal'

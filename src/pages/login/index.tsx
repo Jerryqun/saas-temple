@@ -1,6 +1,6 @@
 import { LoginForm } from 'hnwx-antd-comps'
 import styles from './index.module.css'
-import type { Login, LoginParams } from '@/types/api'
+// import type { Login, LoginParams } from '@/types/api'
 import { useStore } from '@/store'
 import storage from '@/utils/storage'
 import { message } from 'antd'
