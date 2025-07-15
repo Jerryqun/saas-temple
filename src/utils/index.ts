@@ -132,15 +132,15 @@ export const formatPhone = (phone: string | number, emptyNode: React.ReactNode =
  * @param path
  * @returns
  */
-export const findTreeNode = (
+export const findTreeNode = <T = string>(
   tree: Menu.MenuItem[],
   path: string,
-  result: string[] = [],
+  result: T[] = [],
   key: keyof Menu.MenuItem = 'menuName'
-): string[] => {
+): T[] => {
   if (!tree) return []
   for (const data of tree) {
-    result.push(data?.[key] as string)
+    result.push(data?.[key] as T)
     if (data.path === path) return result
     if (data.children?.length) {
       const list = findTreeNode(data.children, path, result, key)

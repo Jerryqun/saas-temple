@@ -36,9 +36,6 @@ export default ({ collapsed }: any) => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  // const { collapsed, isDark } = useStore(state => ({ collapsed: state.collapsed, isDark: state.isDark }))
-  // console.log('isDark: ', isDark)
-
   const data = useRouteLoaderData('layout') as IAuthLoader
 
   const items = getMenuData(data.menuList)

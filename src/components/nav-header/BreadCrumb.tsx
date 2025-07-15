@@ -1,7 +1,7 @@
 import type { IAuthLoader } from '@/router/AuthLoader'
 import { findTreeNode } from '@/utils'
 import { Breadcrumb } from 'antd'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouteLoaderData, useLocation } from 'react-router-dom'
 
 export default () => {
@@ -10,8 +10,8 @@ export default () => {
   const data = useRouteLoaderData('layout') as IAuthLoader
 
   useEffect(() => {
-    const crumb = findTreeNode(data.menuList, pathname)
-    crumb.unshift('首页')
+    const crumb = findTreeNode<React.ReactNode>(data.menuList, pathname)
+    crumb.unshift(<a href='/welcome'>首页</a>)
     setBreadList(crumb)
   }, [pathname])
 
