@@ -1,18 +1,17 @@
-.error_boundary {
+.error-boundary {
   width: 100%;
   height: 100%;
-  &_info {
-    display: flex;
-    padding-top: 200px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: red;
-    :global {
-      .anticon {
-        font-size: 64px;
-        font-size: 700;
-      }
-    }
+}
+
+.error-boundary-info {
+  display: flex;
+  padding-top: 200px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: red;
+  :global(.anticon) {
+    font-size: 64px;
+    font-weight: 700;
   }
 }

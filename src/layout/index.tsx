@@ -9,7 +9,7 @@ import { useStore } from '@/store'
 import Menu from '@/components/menu'
 import TabsFC from '@/components/tabs'
 import styles from './index.module.css'
-import OutletKeepAlive from '@/components/keep-alive-outlet'
+// import OutletKeepAlive from '@/components/keep-alive-outlet'
 
 const { Header, Content, Sider } = Layout
 

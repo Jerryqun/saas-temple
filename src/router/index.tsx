@@ -6,6 +6,7 @@ import Layout from '@/layout'
 import AuthLoader from './AuthLoader'
 import { lazyLoad } from './lazyLoad'
 import React from 'react'
+import ErrorBoundary from '@/components/error-boundary'
 
 export const router = [
   {
@@ -18,7 +19,11 @@ export const router = [
   },
   {
     id: 'layout',
-    element: <Layout />,
+    element: (
+      <ErrorBoundary>
+        <Layout />
+      </ErrorBoundary>
+    ),
     loader: AuthLoader,
     children: [
       {
