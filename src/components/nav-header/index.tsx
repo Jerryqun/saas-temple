@@ -65,7 +65,7 @@ export default () => {
           style={{ marginRight: 10 }}
           onChange={handleSwitch}
         />
-        <Dropdown menu={{ items, onClick }} trigger={['click']}>
+        <Dropdown menu={{ items, onClick }} trigger={['hover']}>
           <span className={style.nickName}>{userInfo.userName}</span>
         </Dropdown>
       </div>

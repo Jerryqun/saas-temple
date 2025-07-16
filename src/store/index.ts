@@ -16,11 +16,11 @@ type useStoreType = {
 
 export const useStore = create<useStoreType>(set => ({
   token: '',
-  test: 'cq',
+  test: '周乐乐',
   userInfo: {
     _id: '',
     userId: 0,
-    userName: 'cq',
+    userName: '周乐乐',
     userEmail: '932798303@qq.com',
     deptId: '',
     state: 0,

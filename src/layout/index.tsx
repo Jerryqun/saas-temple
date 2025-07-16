@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
   return (
     <Watermark content='react'>
-      <Layout style={{ height: '100vh' }}>
+      <Layout style={{ height: '100vh' }} className={styles['layout-wrap']}>
         <Sider theme='light' collapsible collapsed={collapsed} onCollapse={updateCollapsed}>
           <Menu collapsed={collapsed} />
         </Sider>

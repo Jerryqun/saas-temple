@@ -1,0 +1,11 @@
+.layout-wrap {
+  :global(.ant-menu) {
+    border-right: 0 !important;
+  }
+}
+
+.layout-content {
+  background-color: var(--dark-home-bg-color);
+  padding: 16px 16px 0 16px;
+  overflow: auto;
+}
