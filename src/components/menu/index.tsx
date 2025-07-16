@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import type { IAuthLoader } from '@/router/AuthLoader'
 import type { Menu } from '@/types/api'
 import styles from './index.module.css'
-import IconFont from '@/components/icon'
+import IconFont from '@/components/icon-comp'
 import { findTreeNode } from '@/utils'
 
 type MenuItem = Required<MenuProps>['items'][number]

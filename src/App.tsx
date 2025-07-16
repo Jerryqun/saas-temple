@@ -5,6 +5,7 @@ import routers from './router'
 import { ConfigProvider, App as AntdApp, theme } from 'antd'
 import AntdGlobal from '@/utils/AntdGlobal'
 import { useStore } from './store'
+import ErrorBoundary from '@/components/error-boundary'
 
 function App() {
   const isDark = useStore(state => state.isDark)
@@ -23,12 +24,14 @@ function App() {
         algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm
       }}
     >
-      <AntdApp message={{ maxCount: 1 }} className='antd-app'>
-        <AntdGlobal />
-        {/* <HashRouter> */}
-        <RouterProvider router={routers} />
-        {/* </HashRouter> */}
-      </AntdApp>
+      <ErrorBoundary>
+        <AntdApp message={{ maxCount: 1 }} className='antd-app'>
+          <AntdGlobal />
+          {/* <HashRouter> */}
+          <RouterProvider router={routers} />
+          {/* </HashRouter> */}
+        </AntdApp>
+      </ErrorBoundary>
     </ConfigProvider>
   )
 }

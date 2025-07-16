@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { useStore } from '@/store'
 import BreadCrumb from './BreadCrumb'
 import { useLocation, useNavigate } from 'react-router-dom'
-import IconFont from '@/components/icon'
+import IconFont from '@/components/icon-comp'
 
 export default () => {
   const { userInfo, collapsed, isDark, updateCollapsed, updateTheme } = useStore()
