@@ -1,13 +1,15 @@
-name: github pages
-
+name: Push to gh-pages # 工作流名称
+# 触发条件
 on:
-  push:
+  push: # 当代码被推送时触发
     branches:
-      - main # default branch
-
+      - main # default branch   # 只在这些分支上触发
+# 作业定义
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -15,8 +17,8 @@ jobs:
           # 如果配置 themeConfig.lastUpdated 为 false，则不需要添加该参数以加快检出速度
           fetch-depth: 0
       - name: Install dependencies
-        run: npm install
-      - name: Build with dumi
+        run: yarn install
+      - name: Build with vite
         # 文档编译命令，如果是 react 模板需要修改为 npm run docs:build
         run: npm run build
       - name: Deploy
@@ -25,3 +27,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # 文档目录，如果是 react 模板需要修改为 docs-dist
           publish_dir: ./dist
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     registry-url: 'https://registry.npmmirror.com'  # 使用淘宝镜像
