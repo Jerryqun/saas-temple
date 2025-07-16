@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useStore } from '@/store'
 import BreadCrumb from './BreadCrumb'
 import { useLocation, useNavigate } from 'react-router-dom'
+import IconFont from '@/components/icon'
 
 export default () => {
   const { userInfo, collapsed, isDark, updateCollapsed, updateTheme } = useStore()
@@ -18,11 +19,19 @@ export default () => {
   const items: MenuProps['items'] = [
     {
       key: 'email',
-      label: '邮箱：' + userInfo.userEmail
+      label: (
+        <div>
+          <IconFont type='icon-youxiang' /> {'邮箱：' + userInfo.userEmail}
+        </div>
+      )
     },
     {
       key: 'logout',
-      label: '退出'
+      label: (
+        <div>
+          <IconFont type='icon-tuichudenglu' /> 退出
+        </div>
+      )
     }
   ]
 
