@@ -1,7 +1,7 @@
 import { sleep } from '@/utils'
 import UserService from '@/utils/service-mock'
 import { message } from 'antd'
-import type { TableProps } from 'hnwx-antd-comps'
+import type { TableProps } from 'antd-ext-cq'
 // import React from 'react'
 import formSchema from './form'
 import type { NavigateFunction } from 'react-router-dom'

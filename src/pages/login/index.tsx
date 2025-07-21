@@ -1,4 +1,4 @@
-import { LoginForm } from 'hnwx-antd-comps'
+import { LoginForm } from 'antd-ext-cq'
 import styles from './index.module.css'
 // import type { Login, LoginParams } from '@/types/api'
 import { useStore } from '@/store'

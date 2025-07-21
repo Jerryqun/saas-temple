@@ -19,7 +19,7 @@
     "axios": "^1.10.0",
     "echarts": "^5.6.0",
     "gh-pages": "^6.3.0",
-    "hnwx-antd-comps": "^0.0.8",
+    "antd-ext-cq": "^0.0.2",
     "immer": "^10.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

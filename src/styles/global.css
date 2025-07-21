@@ -23,7 +23,7 @@ body {
   height: 104px;
 }
 
-.form-lib-search,
+.antd-ext-cq-search,
 .shine-table-form,
 .table-form-header {
   background: var(--dark-bg-color) !important;

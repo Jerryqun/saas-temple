@@ -1,4 +1,4 @@
-import type { FormFieldProps } from 'hnwx-antd-comps'
+import type { FormFieldProps } from 'antd-ext-cq'
 
 const fields: FormFieldProps[] = [
   {
