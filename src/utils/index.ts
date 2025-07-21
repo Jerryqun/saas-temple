@@ -32,10 +32,10 @@ export const getMenuPath = (list: Menu.MenuItem[]): string[] => {
   }, [])
 }
 
-export const sleep = <T>(time = 1000, result: T): Promise<T> =>
+export const sleep = <T>(time = 1000, result?: T): Promise<T> =>
   new Promise(res => {
     setTimeout(() => {
-      res(result)
+      res(result as T)
     }, time)
   })
 
