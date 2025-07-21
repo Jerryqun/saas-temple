@@ -5,6 +5,7 @@ import type React from 'react'
 export const TOKEN_KEY = 'ADMIN_TOKEN' // token 存储 key
 
 export const setToken = (token: string) => storage.set(TOKEN_KEY, token)
+export const getToken = () => storage.get(TOKEN_KEY)
 
 /**
  *
@@ -31,10 +32,10 @@ export const getMenuPath = (list: Menu.MenuItem[]): string[] => {
   }, [])
 }
 
-export const sleep = (time = 1000) =>
+export const sleep = <T>(time = 1000, result: T): Promise<T> =>
   new Promise(res => {
     setTimeout(() => {
-      res(null)
+      res(result)
     }, time)
   })
 

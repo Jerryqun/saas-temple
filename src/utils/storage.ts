@@ -10,7 +10,7 @@ export default {
     try {
       return JSON.parse(value)
     } catch (err) {
-      console.log('err: ', err)
+      console.log('err-JSON.parse: ', err)
       return value
     }
   },

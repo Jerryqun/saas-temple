@@ -3,17 +3,20 @@ import React, { useEffect } from 'react'
 import { Layout, theme, Watermark } from 'antd'
 import NavHeader from '@/components/nav-header'
 import NavFooter from '@/components/nav-footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import api from '@/api'
 import { useStore } from '@/store'
 import Menu from '@/components/menu'
 import TabsFC from '@/components/tabs'
 import styles from './index.module.css'
+import { getToken } from '@/utils'
 // import OutletKeepAlive from '@/components/keep-alive-outlet'
 
 const { Header, Content, Sider } = Layout
 
 const App: React.FC = () => {
+  const navigator = useNavigate()
+
   const { collapsed, updateUserInfo, updateCollapsed } = useStore()
 
   const {
@@ -23,9 +26,16 @@ const App: React.FC = () => {
   useEffect(() => {
     getUserInfo()
   }, [])
+
   const getUserInfo = async () => {
     const data = await api.getUserInfo()
     updateUserInfo(data)
+  }
+
+  // if(gettoke)
+
+  if (!getToken()) {
+    navigator('/login', { replace: true })
   }
 
   return (

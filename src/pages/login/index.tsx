@@ -2,11 +2,11 @@ import { LoginForm } from 'hnwx-antd-comps'
 import styles from './index.module.css'
 // import type { Login, LoginParams } from '@/types/api'
 import { useStore } from '@/store'
-import storage from '@/utils/storage'
 import { message } from 'antd'
 import api from '@/api'
 import { useNavigate } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
+import { setToken } from '@/utils'
 
 export default () => {
   const updateToken = useStore(state => state.updateToken)
@@ -17,16 +17,17 @@ export default () => {
     const callbackUrl = searchParams.get('callback')
     try {
       const data = await api.login(values)
-      storage.set('token', data)
+      setToken(data)
       updateToken(data)
       message.success('登录成功')
       setTimeout(() => {
         navigate(callbackUrl || '/welcome', { replace: true })
       })
     } catch (error) {
-      setTimeout(() => {
-        navigate(callbackUrl || '/welcome', { replace: true })
-      })
+      // setToken('test-token')
+      // setTimeout(() => {
+      //   navigate(callbackUrl || '/welcome', { replace: true })
+      // })
       console.log('error: ', error)
     }
   }

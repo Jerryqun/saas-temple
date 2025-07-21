@@ -1,16 +1,43 @@
 import request from '@/utils/request'
 import type { Dashboard, Dept, Login, Menu, ResultData, User } from '@/types/api'
+import env from '@/config'
+import { sleep } from '@/utils'
+import { menuList } from '@/config'
+
 export default {
   // 登录
   login(params: Login.params) {
+    if (env.mock) {
+      return sleep(1000, 'tets-token')
+    }
     return request.post<string>('/users/login', params, { showLoading: false })
   },
   // 获取用户信息
   getUserInfo() {
+    if (env.mock) {
+      return sleep(1000, {
+        _id: '',
+        userId: 0,
+        userName: '周乐乐',
+        userEmail: '932798303@qq.com',
+        deptId: '',
+        state: 0,
+        mobile: '13546767673',
+        job: '开发工程师',
+        role: 0,
+        roleList: '',
+        createId: 0,
+        deptName: '财务部',
+        userImg: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
+      })
+    }
     return request.get<User.UserItem>('/users/getUserInfo')
   },
   // 获取权限列表
   getPermissionList() {
+    if (env.mock) {
+      return sleep(1000, menuList)
+    }
     return request.get<{ buttonList: string[]; menuList: Menu.MenuItem[] }>('/users/getPermissionList')
   },
   // 获取工作台汇总数据

@@ -4,6 +4,7 @@ import env from '@/config'
 import type { Result } from '@/types'
 import { message } from '@/utils/AntdGlobal'
 import storage from './storage'
+import { getToken } from '@/utils'
 
 const CodeMap = {
   // token过期
@@ -16,7 +17,10 @@ const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API, // 已被运行时覆盖
   timeout: 8000,
   timeoutErrorMessage: '请求超时请稍后',
-  withCredentials: true
+  withCredentials: true, // 允许携带cookie
+  headers: {
+    token: getToken()
+  }
 })
 
 instance.interceptors.request.use(
