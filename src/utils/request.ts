@@ -38,6 +38,7 @@ instance.interceptors.request.use(
     return config
   },
   (error: AxiosError) => {
+    console.log('error-instance.interceptors.request: ', error)
     hideLoading()
     return Promise.reject(error)
   }
@@ -63,6 +64,7 @@ instance.interceptors.response.use(
     return data.data
   },
   error => {
+    console.log('error-instance.interceptors.response: ', error)
     hideLoading()
     message.error(error.message)
     return Promise.reject(error.message)

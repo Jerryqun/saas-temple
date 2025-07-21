@@ -75,8 +75,8 @@ export const menuList: Menu.MenuItem[] = [
 type ENV = 'dev' | 'stg' | 'prd'
 
 let env: ENV = 'dev'
-console.log('env: ', env)
-if (location.host.indexOf('localhost') > -1) {
+// console.log('env: ', env)
+if (location.host.indexOf('localhost') > -1 || location.host.indexOf('github.io') > -1) {
   env = 'dev'
 } else if (location.host === 'driver-stg.marsview.cc') {
   env = 'stg'
@@ -91,7 +91,7 @@ const config = {
     baseApi: '/api',
     uploadApi: 'http://api-driver-dev.marsview.cc',
     cdn: 'http://xxx.aliyun.com',
-    mock: true,
+    mock: false,
     mockApi: 'https://www.fastmock.site/mock/5841b82d5672783b6fd62bb2a06aeb1f/api'
   },
   stg: {
