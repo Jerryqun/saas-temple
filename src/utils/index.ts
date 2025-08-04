@@ -151,3 +151,67 @@ export const findTreeNode = <T = string>(
   }
   return []
 }
+
+/**
+ * 获取当前 URL 的参数对象（支持标准路由和 Hash 路由）
+ * @param url 可选，默认为 window.location.href
+ * @returns 参数键值对对象
+ */
+export function getRouteParams(url?: string): Record<string, string> {
+  // 获取要解析的 URL
+  const targetUrl = url || window.location.href
+
+  // 处理 Hash 路由（如：#/path?param1=value1&param2=value2）
+  const hashIndex = targetUrl.indexOf('#')
+  const queryIndex = targetUrl.indexOf('?')
+
+  let queryString = ''
+
+  // 判断是否是 Hash 路由带参数
+  if (hashIndex > -1 && queryIndex > hashIndex) {
+    // 提取 Hash 后面的查询字符串
+    queryString = targetUrl.substring(queryIndex + 1)
+  }
+  // 标准路由参数（如：/path?param1=value1&param2=value2）
+  else if (queryIndex > -1) {
+    queryString = targetUrl.substring(queryIndex + 1)
+  }
+
+  // 如果没有查询参数，返回空对象
+  if (!queryString) {
+    return {}
+  }
+
+  // 解析查询字符串
+  const params = new URLSearchParams(queryString)
+  const result: Record<string, string> = {}
+
+  // 转换为普通对象
+  params.forEach((value, key) => {
+    result[key] = value
+  })
+
+  return result
+}
+
+export const getLocation = () => {
+  const { pathname, search, hash } = window.location
+
+  // 如果是 hash 路由，提取 hash 中的路径
+  if (hash.startsWith('#/')) {
+    const hashPath = hash.slice(1) // 去掉 `#`
+    const [hashPathname, hashSearch] = hashPath.split('?')
+    return {
+      pathname: hashPathname || '/',
+      search: hashSearch ? `?${hashSearch}` : '',
+      hash: ''
+    }
+  }
+
+  // 如果是 browser 路由，直接返回
+  return {
+    pathname,
+    search,
+    hash
+  }
+}

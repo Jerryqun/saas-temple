@@ -9,12 +9,13 @@ import { useStore } from '@/store'
 import Menu from '@/components/menu'
 import TabsFC from '@/components/tabs'
 import styles from './index.module.css'
-import { getToken } from '@/utils'
+import { getRouteParams, getToken } from '@/utils'
 // import OutletKeepAlive from '@/components/keep-alive-outlet'
 
 const { Header, Content, Sider } = Layout
 
 const App: React.FC = () => {
+  console.log('App component rendered', getRouteParams())
   const navigator = useNavigate()
 
   const { collapsed, updateUserInfo, updateCollapsed } = useStore()

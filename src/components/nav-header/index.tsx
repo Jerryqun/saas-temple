@@ -7,6 +7,7 @@ import { useStore } from '@/store'
 import BreadCrumb from './BreadCrumb'
 import { useLocation, useNavigate } from 'react-router-dom'
 import IconFont from '@/components/icon-comp'
+// import { getLocation } from '@/utils'
 
 export default () => {
   const { userInfo, collapsed, isDark, updateCollapsed, updateTheme } = useStore()
@@ -74,8 +75,8 @@ export default () => {
           style={{ marginRight: 10 }}
           onChange={handleSwitch}
         />
-        <Dropdown menu={{ items, onClick }} trigger={['hover']}>
-          <span className={style.nickName}>{userInfo.userName}</span>
+        <Dropdown className={style.nickName} menu={{ items, onClick }} trigger={['hover']}>
+          <span>{userInfo.userName}</span>
         </Dropdown>
       </div>
     </div>

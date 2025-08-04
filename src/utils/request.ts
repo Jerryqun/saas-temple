@@ -4,7 +4,7 @@ import env from '@/config'
 import type { Result } from '@/types'
 import { message } from '@/utils/AntdGlobal'
 import storage from './storage'
-import { getToken } from '@/utils'
+import { getToken, getLocation } from '@/utils'
 
 const CodeMap = {
   // token过期
@@ -52,7 +52,9 @@ instance.interceptors.response.use(
     if (data.code === CodeMap.TokenExpire) {
       message.error(data.msg)
       storage.remove('token')
-      location.href = '/login?callback=' + encodeURIComponent(location.href)
+      window.location.href =
+        `${location.href.includes('/#') ? '/#/login?callback=' : '/login?callback='}` +
+        encodeURIComponent(getLocation().pathname)
     } else if (data.code != CodeMap.Success) {
       if (response.config.showError === false) {
         return Promise.resolve(data)
