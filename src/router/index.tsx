@@ -1,4 +1,6 @@
-import { createBrowserRouter, createHashRouter, Navigate } from 'react-router-dom'
+import { createHashRouter, Navigate } from 'react-router-dom'
+// import { createBrowserRouter, createHashRouter, Navigate } from 'react-router-dom'
+
 import Error404 from '@/pages/404'
 import Error403 from '@/pages/403'
 import Login from '@/pages/login'
