@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { VariableSizeList as List } from 'react-window'
-import { Spin, Card, Alert, Input, Button, Avatar } from 'antd'
+import { Spin, Card, Input, Button, Avatar } from 'antd'
 import { UserOutlined, RobotOutlined } from '@ant-design/icons'
 
 interface Message {
