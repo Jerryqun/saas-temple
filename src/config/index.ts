@@ -35,12 +35,12 @@ export const menuList: Menu.MenuItem[] = [
       },
       {
         _id: '3',
-        path: '/auth-list',
+        path: '/ai-list',
         parentId: '1',
         createTime: '-',
         menuState: 1,
         menuType: 1,
-        menuName: '权限列表',
+        menuName: 'ai列表',
         icon: 'icon-lirenmeirong'
       }
     ]

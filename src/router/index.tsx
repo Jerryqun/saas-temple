@@ -43,8 +43,8 @@ export const router = [
         element: lazyLoad(React.lazy(() => import('@/pages/user/user-detail')))
       },
       {
-        path: 'auth-list',
-        element: lazyLoad(React.lazy(() => import('@/pages/auth-list')))
+        path: 'ai-list',
+        element: lazyLoad(React.lazy(() => import('@/pages/ai-list')))
       }
     ]
   },
