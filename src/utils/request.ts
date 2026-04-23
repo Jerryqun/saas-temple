@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios, { type AxiosError } from 'axios'
 import { showLoading, hideLoading } from '@/utils/loading'
 import env from '@/config'
 import type { Result } from '@/types'
@@ -7,38 +7,29 @@ import storage from './storage'
 import { getToken, getLocation } from '@/utils'
 
 const CodeMap = {
-  // token过期
   TokenExpire: 500001,
-  // success
   Success: 200
 }
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_API, // 已被运行时覆盖
   timeout: 8000,
   timeoutErrorMessage: '请求超时请稍后',
-  withCredentials: true, // 允许携带cookie
-  headers: {
-    token: getToken()
-  }
+  withCredentials: true
 })
 
 instance.interceptors.request.use(
   config => {
     if (config.showLoading) showLoading()
-    // if (import.meta.env.VITE_MOCK === 'true') {
-    //   config.baseURL = import.meta.env.VITE_MOCK_API
-    // }
 
-    if (env.mock) {
-      config.baseURL = env.mockApi
-    } else {
-      config.baseURL = env.baseApi
+    const token = getToken()
+    if (token) {
+      config.headers.token = token
     }
+
+    config.baseURL = env.mock ? env.mockApi : env.baseApi
     return config
   },
   (error: AxiosError) => {
-    console.log('error-instance.interceptors.request: ', error)
     hideLoading()
     return Promise.reject(error)
   }
@@ -66,7 +57,6 @@ instance.interceptors.response.use(
     return data.data
   },
   error => {
-    console.log('error-instance.interceptors.response: ', error)
     hideLoading()
     message.error(error.message)
     return Promise.reject(error.message)

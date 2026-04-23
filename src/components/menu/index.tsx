@@ -1,5 +1,5 @@
 import { Menu as AntdMenu, type MenuProps } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import type { IAuthLoader } from '@/router/AuthLoader'
 import type { Menu } from '@/types/api'
@@ -9,32 +9,32 @@ import { findTreeNode } from '@/utils'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
-function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label
-  } as MenuItem
+function buildMenuItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[]
+): MenuItem {
+  return { key, icon, children, label } as MenuItem
 }
 
-function getMenuData(menuList: Menu.MenuItem[]) {
-  const items: any = menuList.map(d => {
-    // 过滤禁用的菜单
-    if (d.menuState === 2) {
-      return null
-    }
-    if (d.children && d.children.length > 0) {
-      return getItem(d.menuName, d.path, <IconFont type={d.icon || ''} />, getMenuData(d.children))
-    } else {
-      return getItem(d.menuName, d.path, <IconFont type={d.icon || ''} />)
-    }
-  })
-
-  return items
+function buildMenuTree(menuList: Menu.MenuItem[]): MenuItem[] {
+  return menuList
+    .filter(item => item.menuState !== 2)
+    .map(item => {
+      const icon = <IconFont type={item.icon || ''} />
+      if (item.children && item.children.length > 0) {
+        return buildMenuItem(item.menuName, item.path, icon, buildMenuTree(item.children))
+      }
+      return buildMenuItem(item.menuName, item.path, icon)
+    })
 }
 
-export default ({ collapsed }: any) => {
+interface SideMenuProps {
+  collapsed: boolean
+}
+
+export default function SideMenu({ collapsed }: SideMenuProps) {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const [openKeys, setOpenKeys] = useState<string[]>()
   const { pathname } = useLocation()
@@ -42,26 +42,24 @@ export default ({ collapsed }: any) => {
 
   const data = useRouteLoaderData('layout') as IAuthLoader
 
-  const items = getMenuData(data.menuList)
+  const menuItems = useMemo(() => buildMenuTree(data.menuList), [data.menuList])
 
   const handleClickMenu = ({ key }: { key: string }) => {
     setSelectedKeys([key])
     navigate(key)
   }
 
-  // 初始化，获取接口菜单列表数据
   useEffect(() => {
     setSelectedKeys([pathname])
     const parentPaths = findTreeNode(data.menuList, pathname, [], 'path')
     setOpenKeys(parentPaths)
-  }, [])
+  }, [pathname, data.menuList])
 
-  // Logo点击
   const handleClickLogo = () => {
     navigate('/welcome')
   }
 
-  if (!openKeys) return
+  if (!openKeys) return null
 
   return (
     <div>
@@ -74,7 +72,7 @@ export default ({ collapsed }: any) => {
         onClick={handleClickMenu}
         defaultOpenKeys={openKeys}
         mode='inline'
-        items={items}
+        items={menuItems}
       />
     </div>
   )

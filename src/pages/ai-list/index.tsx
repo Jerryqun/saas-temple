@@ -13,7 +13,7 @@ interface Message {
 const PAGE_SIZE = 10
 const TOTAL_ITEMS = 100
 
-const AuthList = () => {
+const AiList = () => {
   const [loading, setLoading] = useState(false)
   const [loadingMore, setLoadingMore] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -26,10 +26,18 @@ const AuthList = () => {
   const [streamingContent, setStreamingContent] = useState('')
   const listRef = useRef<any>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const streamingRef = useRef<NodeJS.Timeout>()
+  const streamingRef = useRef<ReturnType<typeof setInterval>>()
+
+  // 组件卸载时清理 interval，防止内存泄漏
+  useEffect(() => {
+    return () => {
+      if (streamingRef.current) {
+        clearInterval(streamingRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
-    // 初始加载或新消息时滚动到底部
     if (listRef.current) {
       listRef.current.scrollToItem(messages.length - 1, 'end')
     }
@@ -59,9 +67,9 @@ const AuthList = () => {
           id,
           role: isUser ? 'user' : 'assistant',
           content: isUser ? `用户问题 ${id}` : `AI回答 ${id}`,
-          timestamp: Date.now() + i * 1000 // 改为正序，最新消息时间戳更大
+          timestamp: Date.now() + i * 1000
         } as Message
-      }).reverse() // 反转数组使最新消息在前
+      }).reverse()
 
       if (isLoadMore) {
         setMessages(prev => [...prev, ...newMessages])
@@ -113,7 +121,6 @@ const AuthList = () => {
     setMessages(prev => [...prev, newUserMessage])
     setInputValue('')
 
-    // 模拟AI回复
     setStreaming(true)
     const fullReply = `这是对"${inputValue}"的详细回复，模拟AI思考后生成的流式输出内容。`
     let currentIndex = 0
@@ -253,4 +260,4 @@ const AuthList = () => {
   )
 }
 
-export default AuthList
+export default AiList

@@ -1,7 +1,4 @@
 import type { Menu } from '@/types/api'
-import { message } from 'antd'
-
-message.config({ maxCount: 1 })
 
 export const menuList: Menu.MenuItem[] = [
   {
@@ -75,7 +72,6 @@ export const menuList: Menu.MenuItem[] = [
 type ENV = 'dev' | 'stg' | 'prd'
 
 let env: ENV = 'dev'
-// console.log('env: ', env)
 if (location.host.indexOf('localhost') > -1 || location.host.indexOf('github.io') > -1) {
   env = 'dev'
 } else if (location.host === 'driver-stg.marsview.cc') {
@@ -83,8 +79,6 @@ if (location.host.indexOf('localhost') > -1 || location.host.indexOf('github.io'
 } else {
   env = 'prd'
 }
-
-// const env = (document.documentElement.dataset.env as ENV) || 'stg'
 
 const config = {
   dev: {

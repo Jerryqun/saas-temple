@@ -1,34 +1,26 @@
 import { LoginForm } from 'antd-ext-cq'
 import styles from './index.module.css'
-// import type { Login, LoginParams } from '@/types/api'
 import { useStore } from '@/store'
 import { message } from 'antd'
 import api from '@/api'
-import { useNavigate } from 'react-router-dom'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { setToken } from '@/utils'
 
-export default () => {
+export default function LoginPage() {
   const updateToken = useStore(state => state.updateToken)
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  const onFinish = async (values: any) => {
+  const handleLogin = async (values: any) => {
     const callbackUrl = searchParams.get('callback')
     try {
       const data = await api.login(values)
       setToken(data)
       updateToken(data)
       message.success('登录成功')
-      setTimeout(() => {
-        navigate(callbackUrl || '/welcome', { replace: true })
-      })
+      navigate(callbackUrl || '/welcome', { replace: true })
     } catch (error) {
-      // setToken('test-token')
-      // setTimeout(() => {
-      //   navigate(callbackUrl || '/welcome', { replace: true })
-      // })
-      console.log('error: ', error)
+      console.error('登录失败:', error)
     }
   }
 
@@ -38,7 +30,7 @@ export default () => {
         title='xxx系统'
         logo='https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'
         subTitle='xxx系统介绍说明'
-        onSubmit={onFinish}
+        onSubmit={handleLogin}
       />
     </div>
   )

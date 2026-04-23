@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-// import type { MenuProps } from 'antd'
 import { Layout, theme, Watermark } from 'antd'
 import NavHeader from '@/components/nav-header'
 import NavFooter from '@/components/nav-footer'
@@ -9,15 +8,12 @@ import { useStore } from '@/store'
 import Menu from '@/components/menu'
 import TabsFC from '@/components/tabs'
 import styles from './index.module.css'
-import { getRouteParams, getToken } from '@/utils'
-// import OutletKeepAlive from '@/components/keep-alive-outlet'
+import { getToken } from '@/utils'
 
 const { Header, Content, Sider } = Layout
 
-const App: React.FC = () => {
-  console.log('App component rendered', getRouteParams())
-  const navigator = useNavigate()
-
+const AppLayout: React.FC = () => {
+  const navigate = useNavigate()
   const { collapsed, updateUserInfo, updateCollapsed } = useStore()
 
   const {
@@ -25,18 +21,16 @@ const App: React.FC = () => {
   } = theme.useToken()
 
   useEffect(() => {
-    getUserInfo()
+    if (!getToken()) {
+      navigate('/login', { replace: true })
+      return
+    }
+    fetchUserInfo()
   }, [])
 
-  const getUserInfo = async () => {
+  const fetchUserInfo = async () => {
     const data = await api.getUserInfo()
     updateUserInfo(data)
-  }
-
-  // if(gettoke)
-
-  if (!getToken()) {
-    navigator('/login', { replace: true })
   }
 
   return (
@@ -51,8 +45,7 @@ const App: React.FC = () => {
             <TabsFC />
           </Header>
           <Content className={styles['layout-content']}>
-            {/* <OutletKeepAlive /> */}
-            <Outlet></Outlet>
+            <Outlet />
           </Content>
           <NavFooter />
         </Layout>
@@ -61,4 +54,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default AppLayout

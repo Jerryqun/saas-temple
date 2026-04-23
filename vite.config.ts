@@ -4,19 +4,34 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  root: './',
-  // base: "api", // 默认
-  // publicDir: "./public", // // 默认
   plugins: [react()],
   base: '/saas-temple/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  server: {
+    host: 'localhost',
+    port: 9999,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true
+      }
+    }
+  },
+  build: {
+    target: 'es2022',
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-antd': ['antd', '@ant-design/icons'],
+          'vendor-echarts': ['echarts']
+        }
+      }
+    }
   }
-  // server: {
-  // 	host: "localhost",
-  // 	port: 9999,
-  // 	proxy: {},
-  // },
 })

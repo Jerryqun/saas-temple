@@ -1,19 +1,25 @@
 import type { IAuthLoader } from '@/router/AuthLoader'
 import { findTreeNode } from '@/utils'
 import { Breadcrumb } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { useRouteLoaderData, useLocation } from 'react-router-dom'
+import type React from 'react'
+import { useMemo } from 'react'
+import { useRouteLoaderData, useLocation, useNavigate } from 'react-router-dom'
 
-export default () => {
-  const [breadList, setBreadList] = useState<any>([])
+export default function BreadCrumbNav() {
   const { pathname } = useLocation()
+  const navigate = useNavigate()
   const data = useRouteLoaderData('layout') as IAuthLoader
 
-  useEffect(() => {
-    const crumb = findTreeNode<React.ReactNode>(data.menuList, '/' + pathname.split('/')[1])
-    crumb.unshift(<a href='/welcome'>首页</a>)
-    setBreadList(crumb)
-  }, [pathname])
+  const breadItems = useMemo(() => {
+    const crumbs = findTreeNode<React.ReactNode>(data.menuList, '/' + pathname.split('/')[1])
+    const homeLink = (
+      <a onClick={() => navigate('/welcome')} style={{ cursor: 'pointer' }}>
+        首页
+      </a>
+    )
+    const items: React.ReactNode[] = [homeLink, ...crumbs]
+    return items.map(item => ({ title: item }))
+  }, [pathname, data.menuList, navigate])
 
-  return <Breadcrumb items={breadList.map((d: any) => ({ title: d }))} />
+  return <Breadcrumb items={breadItems} />
 }

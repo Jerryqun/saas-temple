@@ -2,70 +2,79 @@ import storage from '@/utils/storage'
 import style from './index.module.css'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Dropdown, Switch, type MenuProps } from 'antd'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useStore } from '@/store'
-import BreadCrumb from './BreadCrumb'
+import BreadCrumbNav from './BreadCrumb'
 import { useLocation, useNavigate } from 'react-router-dom'
 import IconFont from '@/components/icon-comp'
-// import { getLocation } from '@/utils'
 
-export default () => {
+export default function NavHeader() {
   const { userInfo, collapsed, isDark, updateCollapsed, updateTheme } = useStore()
-
   const navigate = useNavigate()
   const location = useLocation()
+
   useEffect(() => {
-    handleSwitch(isDark)
+    applyTheme(isDark)
   }, [])
-  const items: MenuProps['items'] = [
-    {
-      key: 'email',
-      label: (
-        <div>
-          <IconFont type='icon-youxiang' /> {'邮箱：' + userInfo.userEmail}
-        </div>
-      )
+
+  const dropdownItems: MenuProps['items'] = useMemo(
+    () => [
+      {
+        key: 'email',
+        label: (
+          <div>
+            <IconFont type='icon-youxiang' /> {'邮箱：' + userInfo.userEmail}
+          </div>
+        )
+      },
+      {
+        key: 'logout',
+        label: (
+          <div>
+            <IconFont type='icon-tuichudenglu' /> 退出
+          </div>
+        )
+      }
+    ],
+    [userInfo.userEmail]
+  )
+
+  const handleDropdownClick: MenuProps['onClick'] = useCallback(
+    ({ key }) => {
+      if (key === 'logout') {
+        storage.remove('token')
+        navigate('/login?callback=' + encodeURIComponent(location.pathname), { replace: true })
+      }
     },
-    {
-      key: 'logout',
-      label: (
-        <div>
-          <IconFont type='icon-tuichudenglu' /> 退出
-        </div>
-      )
-    }
-  ]
+    [navigate, location.pathname]
+  )
 
-  // 控制菜单图标关闭和展开
-  const toggleCollapsed = () => {
-    updateCollapsed()
-  }
-
-  const onClick: MenuProps['onClick'] = ({ key }) => {
-    if (key === 'logout') {
-      storage.remove('token')
-      navigate('/login?callback=' + encodeURIComponent(location.pathname), { replace: true })
-    }
-  }
-
-  const handleSwitch = (isDark: boolean) => {
-    if (isDark) {
+  const applyTheme = (dark: boolean) => {
+    if (dark) {
       document.documentElement.dataset.theme = 'dark'
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.dataset.theme = 'light'
       document.documentElement.classList.remove('dark')
     }
-    storage.set('isDark', isDark)
-    updateTheme(isDark)
   }
+
+  const handleThemeSwitch = useCallback(
+    (dark: boolean) => {
+      applyTheme(dark)
+      storage.set('isDark', dark)
+      updateTheme(dark)
+    },
+    [updateTheme]
+  )
+
   return (
     <div className={style['nav-header']}>
       <div className={style['left']}>
-        <div className={style['icon']} onClick={toggleCollapsed}>
+        <div className={style['icon']} onClick={updateCollapsed}>
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </div>
-        <BreadCrumb />
+        <BreadCrumbNav />
       </div>
       <div className={style['right']}>
         <Switch
@@ -73,9 +82,9 @@ export default () => {
           checkedChildren='暗黑'
           unCheckedChildren='默认'
           style={{ marginRight: 10 }}
-          onChange={handleSwitch}
+          onChange={handleThemeSwitch}
         />
-        <Dropdown className={style.nickName} menu={{ items, onClick }} trigger={['hover']}>
+        <Dropdown className={style.nickName} menu={{ items: dropdownItems, onClick: handleDropdownClick }} trigger={['hover']}>
           <span>{userInfo.userName}</span>
         </Dropdown>
       </div>

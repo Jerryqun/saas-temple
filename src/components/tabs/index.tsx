@@ -1,87 +1,87 @@
 import type { IAuthLoader } from '@/router/AuthLoader'
 import { searchRoute } from '@/utils'
 import { Tabs } from 'antd'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import styles from './index.module.css'
-interface TabsItem {
+
+interface TabItem {
   key: string
   label: string
   closable: boolean
 }
+
+const DEFAULT_TAB: TabItem = { key: '/welcome', label: '首页', closable: false }
+
 export default function TabsFC() {
   const { pathname } = useLocation()
-  const [tabsList, setTabsList] = useState<TabsItem[]>([{ key: '/welcome', label: '首页', closable: false }])
+  const [tabsList, setTabsList] = useState<TabItem[]>([DEFAULT_TAB])
   const [activeKey, setActiveKey] = useState('')
   const data = (useRouteLoaderData('layout') as IAuthLoader) || { menuList: [] }
   const navigate = useNavigate()
-  useEffect(() => {
-    addTabs()
-  }, [pathname])
 
-  // 创建页签
-  const addTabs = () => {
-    const pathSplit = pathname.split('/')
-    // 判断是不是详情页,当时详情页的时候 tabs永远只有一个
-    if (pathSplit.length > 2) {
-      const p = '/' + pathname.split('/')?.[1]
-      const route = searchRoute(p, data.menuList)
+  useEffect(() => {
+    const pathSegments = pathname.split('/')
+
+    // 如果当前路径已经在 tabsList 中（如 /welcome），直接激活即可
+    const existingTab = tabsList.find(item => item.key === pathname)
+    if (existingTab) {
+      setActiveKey(pathname)
+      return
+    }
+
+    // 详情页场景：路径超过两层时，复用同一父路径的 tab
+    if (pathSegments.length > 2) {
+      const parentPath = '/' + pathSegments[1]
+      const route = searchRoute(parentPath, data.menuList)
       if (!route) return
 
-      const cur = tabsList.find(item => item.key.includes(p))
-      if (!cur) {
-        tabsList.push({
-          key: pathname,
-          label: route.menuName,
-          closable: pathname !== '/welcome'
-        })
-        setTabsList([...tabsList]) // 新的值才能触发render
-        setActiveKey(pathname)
+      const parentTab = tabsList.find(item => item.key.includes(parentPath))
+      if (!parentTab) {
+        setTabsList(prev => [
+          ...prev,
+          { key: pathname, label: route.menuName, closable: true }
+        ])
       } else {
-        setTabsList(
-          tabsList.map(d => {
-            if (d.key.includes(p)) {
-              return { ...d, key: pathname }
-            } else {
-              return { ...d }
-            }
-          })
-        ) // 新的值才能触发render
-        setActiveKey(pathname)
+        setTabsList(prev =>
+          prev.map(tab => (tab.key.includes(parentPath) ? { ...tab, key: pathname } : tab))
+        )
       }
+      setActiveKey(pathname)
       return
     }
 
     const route = searchRoute(pathname, data.menuList)
     if (!route) return
-    if (!tabsList.find(item => item.key == pathname)) {
-      tabsList.push({
-        key: pathname,
-        label: route.menuName,
-        closable: pathname !== '/welcome'
-      })
-    }
-    setTabsList([...tabsList]) // 新的值才能触发render
+
+    setTabsList(prev => [
+      ...prev,
+      { key: pathname, label: route.menuName, closable: pathname !== '/welcome' }
+    ])
     setActiveKey(pathname)
-  }
+  }, [pathname, data.menuList])
 
-  // 路由切换
-  const handleChange = (path: string) => {
-    navigate(path)
-    setActiveKey(path)
-  }
+  const handleChange = useCallback(
+    (path: string) => {
+      navigate(path)
+      setActiveKey(path)
+    },
+    [navigate]
+  )
 
-  const handleDel = (path: string) => {
-    if (pathname === path) {
-      tabsList.forEach((item, index: number) => {
-        if (item.key != pathname) return
-        const nextTab = tabsList[index + 1] || tabsList[index - 1]
-        if (!nextTab) return
-        navigate(nextTab.key)
-      })
-    }
-    setTabsList(tabsList.filter(item => item.key != path))
-  }
+  const handleDelete = useCallback(
+    (targetPath: string) => {
+      if (pathname === targetPath) {
+        const currentIndex = tabsList.findIndex(item => item.key === pathname)
+        const nextTab = tabsList[currentIndex + 1] || tabsList[currentIndex - 1]
+        if (nextTab) {
+          navigate(nextTab.key)
+        }
+      }
+      setTabsList(prev => prev.filter(item => item.key !== targetPath))
+    },
+    [pathname, tabsList, navigate]
+  )
 
   return (
     <div className={styles['tabs']}>
@@ -92,9 +92,7 @@ export default function TabsFC() {
         type='editable-card'
         hideAdd
         onChange={handleChange}
-        onEdit={path => {
-          handleDel(path as string)
-        }}
+        onEdit={path => handleDelete(path as string)}
       />
     </div>
   )
