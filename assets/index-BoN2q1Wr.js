@@ -1,0 +1,1 @@
+import{j as s}from"./index-CNEOMKGm.js";import{m as o}from"./vendor-react-DFdCKVZb.js";import"./vendor-antd-CC_QX9cd.js";const a=()=>{const r=o();return console.log("user-id: ",r.id),s.jsx("div",{children:"user-detail"})};export{a as default};
