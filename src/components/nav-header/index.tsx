@@ -40,7 +40,7 @@ export default function NavHeader() {
   )
 
   const handleDropdownClick: MenuProps['onClick'] = useCallback(
-    ({ key }) => {
+    ({ key }: { key: string }) => {
       if (key === 'logout') {
         storage.remove('token')
         navigate('/login?callback=' + encodeURIComponent(location.pathname), { replace: true })
